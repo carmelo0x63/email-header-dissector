@@ -1,15 +1,13 @@
-## E-Mail Header Analyzer (MHA)
-![mha](https://cloud.githubusercontent.com/assets/1170490/18221866/b7b362d6-718e-11e6-9fa0-2e7f8bc2b9d7.png)
+## Email Header Dissector (EHeaD)
 
-
-## What is E-Mail header analyzer (MHA):
-E-Mail header analyzer is a tool written in [flask](http://flask.pocoo.org/) for parsing email headers and converting them to a human readable format and it also can:
+## What is Email Header Dissector (EHeaD)
+Email Header Dissector (EHeaD) is a tool written in [Flask](http://flask.pocoo.org/) for parsing email headers and converting them to a human readable format and it also can:
 * Identify hop delays.
 * Identify the source of the email.
 * Identify hop country.
 
 
-## MHA is an alternative for the following:
+## EHeaD is an alternative to the following:
 | Name | Dev | Issues |
 | ---- | --- | ----- |
 | [MessageHeader](https://toolbox.googleapps.com/apps/messageheader/) | Google | Not showing all the hops. |
@@ -18,31 +16,28 @@ E-Mail header analyzer is a tool written in [flask](http://flask.pocoo.org/) for
 
 
 ## Installation
-Install system dependencies:
-```
-sudo apt-get update
-sudo apt-get install python3-pip
-sudo pip3 install virtualenv
-```
-Create a Python3 virtual environment and activate it:
-```
-virtualenv virt
-source virt/bin/activate
-```
 Clone the GitHub repo:
 ```
-git clone https://github.com/lnxg33k/email-header-analyzer.git
+$ git clone https://github.com/carmelo0x99/email-header-dissector.git
 ```
-Install Python dependencies:
+
+Create a Python3 virtual enironment and activate its dependencies:
 ```
-cd MHA
-pip3 install -r requirements.txt
+$ cd email-header-dissector
+$ python3 -m venv .
+$ source bin/activate
+$ pip3 install -r requirements.txt
 ```
 Run the development server:
-`python3 server.py -d`
+```
+$ cd ehead
+$ python3 server.py -d
+```
 
 You can change the bind address or port by specifying the appropriate options:
-`python3 server.py -b 0.0.0.0 -p 8080`
+```
+$ python3 server.py -b 0.0.0.0 -p 8080
+```
 
 Everything should go well, now visit [http://localhost:8080](http://localhost:8080).
 
@@ -51,13 +46,13 @@ Everything should go well, now visit [http://localhost:8080](http://localhost:80
 A `Dockerfile` is provided if you wish to build a docker image.
 
 ```
-docker build -t mha:latest .
+docker build -t ehead:latest .
 ```
 
 You can then run a container with:
 
 ```
-docker run -d -p 8080:8080 mha:latest
+docker run -d -p 8080:8080 ehead:latest
 ```
 
 ### Docker-Compose
@@ -66,21 +61,22 @@ A `docker-compose` file is provided if you wish to use docker-compose.
 
 Clone the GitHub repo:
 ```
-git clone https://github.com/lnxg33k/email-header-analyzer.git
-cd email-header-analyzer
+$ git clone https://github.com/carmelo0x99/email-header-dissector.git
+$ cd email-header-analyzer
 ```
 
 Let docker-compose do the work.
 ```
-docker-compose up -d
+$ docker-compose up -d
 ```
 
 Stop the container.
 ```
-docker-compose down
+$ docker-compose down
 ```
 
 HowTo enable debugging. Add in the docker `docker-compose.yml` file the line
 ```yaml
 command: --debug
 ```
+
