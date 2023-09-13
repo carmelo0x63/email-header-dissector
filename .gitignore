@@ -137,6 +137,6 @@ dmypy.json
 *.json
 _archive/
 .DS_Store
-*.html
+#*.html
 TwitterAPI*
 friends.py

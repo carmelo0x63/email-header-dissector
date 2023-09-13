@@ -26,7 +26,7 @@ Create a Python3 virtual enironment and activate its dependencies:
 $ cd email-header-dissector
 $ python3 -m venv .
 $ source bin/activate
-$ pip3 install -r requirements.txt
+$ python3 -m pip install -r requirements.txt
 ```
 Run the development server:
 ```
