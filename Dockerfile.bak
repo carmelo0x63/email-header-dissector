@@ -1,13 +1,13 @@
 FROM python:3-alpine
 
-WORKDIR /usr/src/mha
+WORKDIR /usr/src/ehead
 
 COPY requirements.txt ./
 RUN apk add --no-cache gcc musl-dev && \
     pip install --no-cache-dir -r requirements.txt
 
-COPY mha/ .
+COPY ehead/ .
 
 EXPOSE 8080
 
-ENTRYPOINT ["python", "/usr/src/mha/server.py", "-b", "0.0.0.0"]
+ENTRYPOINT ["python", "/usr/src/ehead/server.py", "-b", "0.0.0.0"]

@@ -1,1 +1,1 @@
-web: gunicorn --chdir mha server:app
+web: gunicorn --chdir ehead server:app

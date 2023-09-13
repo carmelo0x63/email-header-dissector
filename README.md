@@ -1,13 +1,14 @@
-## Email Header Dissector (EHeaD)
+# Email Header Dissector (EHeaD)
 
-## What is Email Header Dissector (EHeaD)
+### What is Email Header Dissector (EHeaD)
 Email Header Dissector (EHeaD) is a tool written in [Flask](http://flask.pocoo.org/) for parsing email headers and converting them to a human readable format and it also can:
-* Identify hop delays.
-* Identify the source of the email.
-* Identify hop country.
+- Identify hop delays
+- Identify the source of the email
+- Identify hop country
 
+**NOTE**: the tool's name, EHeaD, it to be pronounced `hɛd` (just like `head`)
 
-## EHeaD is an alternative to the following:
+### EHeaD is an alternative to the following:
 | Name | Dev | Issues |
 | ---- | --- | ----- |
 | [MessageHeader](https://toolbox.googleapps.com/apps/messageheader/) | Google | Not showing all the hops. |
@@ -15,7 +16,7 @@ Email Header Dissector (EHeaD) is a tool written in [Flask](http://flask.pocoo.o
 | [Message Header Analyzer](https://testconnectivity.microsoft.com/MHA/Pages/mha.aspx) | Microsoft | Broken UI. |
 
 
-## Installation
+### Installation
 Clone the GitHub repo:
 ```
 $ git clone https://github.com/carmelo0x99/email-header-dissector.git
@@ -41,7 +42,7 @@ $ python3 server.py -b 0.0.0.0 -p 8080
 
 Everything should go well, now visit [http://localhost:8080](http://localhost:8080).
 
-## Docker
+### Docker
 
 A `Dockerfile` is provided if you wish to build a docker image.
 
