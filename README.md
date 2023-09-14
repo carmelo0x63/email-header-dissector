@@ -1,59 +1,73 @@
 # Email Header Dissector (EHeaD)
 
 ### What is Email Header Dissector (EHeaD)
-Email Header Dissector (EHeaD) is a tool written in [Flask](http://flask.pocoo.org/) for parsing email headers and converting them to a human readable format and it also can:
-- Identify hop delays
-- Identify the source of the email
-- Identify hop country
+Email Header Dissector (EHeaD), written in Python and based on [Flask](http://flask.pocoo.org/) aiming at parsing email headers and clearly displaying the information in a human readable format.
+EHeaD identifies:
+- hop delays
+- the source of the email
+- hop country
 
 **NOTE**: the tool's name, EHeaD, it to be pronounced `hɛd` (just like `head`)
 
 ### EHeaD is an alternative to the following:
 | Name | Dev | Issues |
-| ---- | --- | ----- |
-| [MessageHeader](https://toolbox.googleapps.com/apps/messageheader/) | Google | Not showing all the hops. |
-| [EmailHeaders](https://mxtoolbox.com/Public/Tools/EmailHeaders.aspx) | Mxtoolbox | Not accurate and slow. |
-| [Message Header Analyzer](https://testconnectivity.microsoft.com/MHA/Pages/mha.aspx) | Microsoft | Broken UI. |
+| ---- | --- | ------ |
+| [MessageHeader](https://toolbox.googleapps.com/apps/messageheader/) | Google | Not showing all the hops |
+| [EmailHeaders](https://mxtoolbox.com/Public/Tools/EmailHeaders.aspx) | Mxtoolbox | Not accurate and slow |
+| [Message Header Analyzer](https://testconnectivity.microsoft.com/MHA/Pages/mha.aspx) | Microsoft | Broken UI |
 
 
 ### Installation
 Clone the GitHub repo:
 ```
-$ git clone https://github.com/carmelo0x99/email-header-dissector.git
+$ git clone https://github.com/carmelo0x99/email-header-dissector.git EHeaD
 ```
 
-Create a Python3 virtual enironment and activate its dependencies:
+Create a Python3 virtual environment and activate its dependencies:
 ```
 $ cd email-header-dissector
+
 $ python3 -m venv .
+
 $ source bin/activate
+
 $ python3 -m pip install -r requirements.txt
 ```
 Run the development server:
 ```
 $ cd ehead
+
 $ python3 server.py -d
 ```
 
-You can change the bind address or port by specifying the appropriate options:
+To make the server accessible from other hosts the following command can be run:
 ```
-$ python3 server.py -b 0.0.0.0 -p 8080
+$ python3 server.py -d -b 0.0.0.0 -p 8080
 ```
 
-Everything should go well, now visit [http://localhost:8080](http://localhost:8080).
+The following (or similar) messages shall be shown on the console:
+```
+ * Serving Flask app 'server'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8080
+Press CTRL+C to quit
+```
+
+If that is the case, the application can be reached as follows: [http://localhost:8080](http://localhost:8080).
 
 ### Docker
 
-A `Dockerfile` is provided if you wish to build a docker image.
+A `Dockerfile` is provided if you wish to build a Docker image.
 
 ```
-docker build -t ehead:latest .
+$ docker build -t ehead:latest .
 ```
 
 You can then run a container with:
 
 ```
-docker run -d -p 8080:8080 ehead:latest
+$ docker run -d -p 8080:8080 ehead:latest
 ```
 
 ### Docker-Compose
@@ -76,7 +90,7 @@ Stop the container.
 $ docker-compose down
 ```
 
-HowTo enable debugging. Add in the docker `docker-compose.yml` file the line
+HowTo enable debugging. Add in the docker `docker-compose.yaml` file the line
 ```yaml
 command: --debug
 ```

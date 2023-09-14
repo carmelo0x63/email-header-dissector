@@ -131,12 +131,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Bearer token
-*_config*.json
-
-*.json
 _archive/
 .DS_Store
-#*.html
-TwitterAPI*
-friends.py
