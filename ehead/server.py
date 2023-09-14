@@ -4,6 +4,7 @@
 # author: Carmelo C
 # email: carmelo.califano@gmail.com
 # history, date format ISO 8601:
+#  2023-09-14  Code refactored + added a fix for when ';' is missing right before the timestamp
 #  2023-09-13  Forked from https://github.com/cyberdefenders/email-header-analyzer
 
 # Importing modules from Python's standard library
@@ -91,6 +92,30 @@ def getHeaderVal(h, data, rex='\s*(.*?)\n\S+:\s'):
         return None
 
 
+def checkLineSyntax(full_line):
+    """
+    Function checkLineSyntax() splits the individual header line into 'chunks' based on delimiters:
+    ';' and '\r\n'
+    """
+    if ';' in full_line:
+        full_line = full_line.split(';')
+    else:
+        full_line = full_line.split('\r\n')
+
+    """
+    The following lines are a 'fix' in case no ';' exists to separate the main message from the timestamp, e.g.:
+      `Received: by filterdrecv-9c566959b-7hbkc with SMTP id filterdrecv-9c566959b-7hbkc-1-64DD10AA-3A 2023-08-16 18:08:43.128347473 +0000 UTC m=+4913272.759346358`
+    Currently the split is statically based on "0:5" + ";" + "6:".
+    """
+    if len(full_line) == 1:
+        line_temp = []
+        line_temp.append(' '.join(full_line[0].split()[:6]) + ';')
+        line_temp.append(' '.join(full_line[0].split()[6:]))
+        full_line = line_temp
+
+    return full_line
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method != 'POST':
@@ -103,21 +128,14 @@ def index():
     if received:
         received = [i for i in received if ('from' in i or 'by' in i)]
     else:
-        received = re.findall(
-            'Received:\s*(.*?)\n\S+:\s+', mail_data, re.X | re.DOTALL | re.I)
+        received = re.findall('Received:\s*(.*?)\n\S+:\s+', mail_data, re.X | re.DOTALL | re.I)
     c = len(received)
     for i in range(len(received)):
-        if ';' in received[i]:
-            line = received[i].split(';')
-        else:
-            line = received[i].split('\r\n')
+        line = checkLineSyntax(received[i])
         line = list(map(str.strip, line))
         line = [x.replace('\r\n', ' ') for x in line]
         try:
-            if ';' in received[i + 1]:
-                next_line = received[i + 1].split(';')
-            else:
-                next_line = received[i + 1].split('\r\n')
+            next_line = checkLineSyntax(received[i + 1])
             next_line = list(map(str.strip, next_line))
             next_line = [x.replace('\r\n', '') for x in next_line]
         except IndexError:
