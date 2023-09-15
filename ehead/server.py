@@ -4,8 +4,12 @@
 # author: Carmelo C
 # email: carmelo.califano@gmail.com
 # history, date format ISO 8601:
-#  2023-09-14  Code refactored + added a fix for when ';' is missing right before the timestamp
-#  2023-09-13  Forked from https://github.com/cyberdefenders/email-header-analyzer
+#  2023-09-15  1.0.1: code refactored + added a fix for when ';' is missing right before the timestamp
+#  2023-09-13  1.0: forked from https://github.com/cyberdefenders/email-header-analyzer
+
+# Global settings
+__version__ = '1.0.1'
+__build__ = '20230915'
 
 # Importing modules from Python's standard library
 import argparse
@@ -52,12 +56,12 @@ def utility_processor():
                         'iso_code': r.iso_code.lower(),
                         'country_name': r.name
                     }
-    return dict(country=getCountryForIP)
+    return dict(country = getCountryForIP)
 
 
 @app.context_processor
 def utility_processor():
-    def duration(seconds, _maxweeks=99999999999):
+    def duration(seconds, _maxweeks = 99999999999):
         return ', '.join(
             '%d %s' % (num, unit)
             for num, unit in zip([
@@ -69,12 +73,12 @@ def utility_processor():
             ], ['wk', 'd', 'hr', 'min', 'sec'])
             if num
         )
-    return dict(duration=duration)
+    return dict(duration = duration)
 
 
 def dateParser(line):
     try:
-        r = dateutil.parser.parse(line, fuzzy=True)
+        r = dateutil.parser.parse(line, fuzzy = True)
 
     # if the fuzzy parser failed to parse the line due to
     # incorrect timezone information issue #5 GitHub
@@ -85,7 +89,7 @@ def dateParser(line):
     return r
 
 
-def getHeaderVal(h, data, rex='\s*(.*?)\n\S+:\s'):
+def getHeaderVal(h, data, rex = '\s*(.*?)\n\S+:\s'):
     if r := re.findall(f'{h}:{rex}', data, re.X | re.DOTALL | re.I):
         return r[0].strip()
     else:
@@ -116,7 +120,7 @@ def checkLineSyntax(full_line):
     return full_line
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods = ['GET', 'POST'])
 def index():
     if request.method != 'POST':
         return render_template('index.html')
@@ -143,6 +147,13 @@ def index():
 
         org_time = dateParser(line[-1])
         next_time = org_time if not next_line else dateParser(next_line[-1])
+        print('DEBUG')
+        print(org_time)
+        print(next_time)
+        print(next_line)
+        if not next_time:
+            print('HOHOHO')
+        print('DEBUG')
         if line[0].startswith('from'):
             data = re.findall(
                 """
@@ -193,20 +204,20 @@ def index():
     delayed = bool(totalDelay)
 
     custom_style = Style(
-        background='transparent',
-        plot_background='transparent',
-        font_family='googlefont:Open Sans',
+        background = 'transparent',
+        plot_background = 'transparent',
+        font_family = 'googlefont:Open Sans',
         # title_font_size=12,
     )
     line_chart = pygal.HorizontalBar(
-        style=custom_style, height=250, legend_at_bottom=True,
-        tooltip_border_radius=10)
+        style = custom_style, height = 250, legend_at_bottom = True,
+        tooltip_border_radius = 10)
     line_chart.tooltip_fancy_mode = False
     line_chart.title = f'Total Delay is: {fTotalDelay}'
     line_chart.x_title = 'Delay in seconds.'
     for i in graph:
         line_chart.add(i[0], i[1])
-    chart = line_chart.render(is_unicode=True)
+    chart = line_chart.render(is_unicode = True)
 
     summary = {
         'From': n.get('From') or getHeaderVal('from', mail_data),
@@ -220,18 +231,18 @@ def index():
     security_headers = ['Received-SPF', 'Authentication-Results',
                         'DKIM-Signature', 'ARC-Authentication-Results']
     return render_template(
-        'index.html', data=r, delayed=delayed, summary=summary,
-        n=n, chart=chart, security_headers=security_headers)
+        'index.html', data = r, delayed = delayed, summary = summary,
+        n = n, chart = chart, security_headers = security_headers)
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Mail Header Analyser")
-    parser.add_argument("-d", "--debug", action="store_true", default=False,
-                        help="Enable debug mode")
-    parser.add_argument("-b", "--bind", default="127.0.0.1", type=str)
-    parser.add_argument("-p", "--port", default="8080", type=int)
+    parser = argparse.ArgumentParser(description = 'Email Header Dissecto, version ' + __version__ + ', build ' + __build__ + '.')
+    parser.add_argument('-d', '--debug', action = 'store_true', default = False, help = 'Enable debug mode')
+    parser.add_argument('-b', '--bind', default = '127.0.0.1', type = str)
+    parser.add_argument('-p', '--port', default = '8080', type = int)
+    parser.add_argument('-v', '--version', action = 'version', version = '%(prog)s {version}'.format(version = __version__))
     args = parser.parse_args()
 
     app.debug = args.debug
-    app.run(host=args.bind, port=args.port)
+    app.run(host = args.bind, port = args.port)
 
