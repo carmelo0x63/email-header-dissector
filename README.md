@@ -7,7 +7,7 @@ EHeaD identifies:
 - the source of the email
 - hop country
 
-**NOTE**: the tool's name, EHeaD, it to be pronounced `hɛd` (just like `head`)
+**NOTE**: the tool's name, EHeaD, it to be pronounced `e-hɛd` (just like `e-head`)
 
 ### EHeaD is an alternative to the following:
 | Name | Dev | Issues |
