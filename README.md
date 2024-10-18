@@ -20,7 +20,7 @@ EHeaD identifies:
 ### Installation
 Clone the GitHub repo:
 ```
-$ git clone https://github.com/carmelo0x99/email-header-dissector.git EHeaD
+$ git clone https://github.com/carmelo0x63/email-header-dissector.git EHeaD
 ```
 
 Create a Python3 virtual environment and activate its dependencies:
@@ -40,7 +40,7 @@ $ cd ehead
 $ python3 server.py -d
 ```
 
-To make the server accessible from other hosts the following command can be run:
+**NOTE**: to make the server accessible from other hosts the following command can be run:
 ```
 $ python3 server.py -d -b 0.0.0.0 -p 8080
 ```
@@ -76,7 +76,7 @@ A `docker-compose` file is provided if you wish to use docker-compose.
 
 Clone the GitHub repo:
 ```
-$ git clone https://github.com/carmelo0x99/email-header-dissector.git
+$ git clone https://github.com/carmelo0x63/email-header-dissector.git
 $ cd email-header-analyzer
 ```
 
