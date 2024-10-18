@@ -16,6 +16,8 @@ EHeaD identifies:
 | [EmailHeaders](https://mxtoolbox.com/Public/Tools/EmailHeaders.aspx) | Mxtoolbox | Not accurate and slow |
 | [Message Header Analyzer](https://testconnectivity.microsoft.com/MHA/Pages/mha.aspx) | Microsoft | Broken UI |
 
+**All running locally on your Python-enabled laptop!**
+
 
 ### Installation
 Clone the GitHub repo:
@@ -25,7 +27,7 @@ $ git clone https://github.com/carmelo0x63/email-header-dissector.git EHeaD
 
 Create a Python3 virtual environment and activate its dependencies:
 ```
-$ cd email-header-dissector
+$ cd EHeaD
 
 $ python3 -m venv .
 
@@ -76,8 +78,9 @@ A `docker-compose` file is provided if you wish to use docker-compose.
 
 Clone the GitHub repo:
 ```
-$ git clone https://github.com/carmelo0x63/email-header-dissector.git
-$ cd email-header-analyzer
+$ git clone https://github.com/carmelo0x63/email-header-dissector.git EHeaD
+
+$ cd EHeaD
 ```
 
 Let docker-compose do the work.
