@@ -16,7 +16,7 @@ EHeaD identifies:
 | [EmailHeaders](https://mxtoolbox.com/Public/Tools/EmailHeaders.aspx) | Mxtoolbox | Not accurate and slow |
 | [Message Header Analyzer](https://testconnectivity.microsoft.com/MHA/Pages/mha.aspx) | Microsoft | Broken UI |
 
-**All running locally on your Python-enabled laptop!**
+**While running locally on your Python-enabled laptop!**
 
 
 ### Installation
